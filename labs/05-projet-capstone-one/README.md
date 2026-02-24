@@ -99,7 +99,7 @@ aws iam get-role --role-name APIGatewayS3ServiceRole --query 'Role.Arn' --output
 - Le projet doit être déployable avec la commande :
 
 ```bash
-npx ts-node src/deploy-project.ts
+npm run deploy
 ```
 
 ### ✅ Interface de test fonctionnelle
@@ -112,7 +112,7 @@ npx ts-node src/deploy-project.ts
 - Le projet doit être destructible avec la commande :
 
 ```bash
-npx ts-node src/destroy-project.ts
+npm run destroy
 ```
 
 ## Ressources disponibles
@@ -170,6 +170,7 @@ npm install
 ### Étape 3 : Implémentation
 
 1. **Implémentez le script de déploiement** (`src/deploy-project.ts`) :
+
    - Création du bucket S3
    - Upload des images depuis `./assets/`
    - Création de la table DynamoDB
@@ -188,17 +189,18 @@ npm install
 1. Déployez votre projet :
 
 ```bash
-npx ts-node src/deploy-project.ts
+npm run deploy
 ```
 
 2. Testez l'API avec l'interface web :
+
    - Ouvrez `checker/index.html` avec Live Server
    - Vérifiez que tous les endpoints fonctionnent
 
 3. Nettoyez les ressources :
 
 ```bash
-npx ts-node src/destroy-project.ts
+npm run destroy
 ```
 
 ## Bonnes pratiques à respecter

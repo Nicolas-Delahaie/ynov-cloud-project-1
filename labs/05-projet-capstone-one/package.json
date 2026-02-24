@@ -4,19 +4,8 @@
   "description": "Projet final - Architecture API Gateway + DynamoDB + S3",
   "main": "dist/main.js",
   "scripts": {
-    "build": "tsc",
-    "clean": "rm -rf dist",
-    "start": "npm run build && node dist/main.js",
-    "dev": "ts-node src/main.ts",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "test:integration": "jest --testPathPattern=integration",
-    "demo": "npm run build && node dist/demo.js",
-    "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint src/**/*.ts --fix",
-    "format": "prettier --write src/**/*.ts",
-    "format:check": "prettier --check src/**/*.ts"
+    "deploy": "ts-node src/deploy-project.ts",
+    "destroy": "npx ts-node src/destroy-project.ts"
   },
   "keywords": [
     "aws",
