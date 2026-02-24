@@ -17,9 +17,13 @@
   },
   "postCreateCommand": "npm install && ARCH=$(uname -m) && if [ \"$ARCH\" = \"aarch64\" ] || [ \"$ARCH\" = \"arm64\" ]; then URL=\"https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_arm64/session-manager-plugin.deb\"; else URL=\"https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb\"; fi && curl -sL \"$URL\" -o \"plugin.deb\" && sudo dpkg -i plugin.deb && rm plugin.deb",
   "mounts": [
-    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.aws,target=/home/vscode/.aws,type=bind"
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.aws,target=/home/vscode/.aws,type=bind",
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,type=bind"
   ],
-  "remoteUser": "vscode"
+  "remoteUser": "vscode",
+  "containerEnv": {
+    "AWS_PROFILE": "aws-labs"
+  }
 
   // Features to add to the dev container. More info: https://containers.dev/features.
   // "features": {},
