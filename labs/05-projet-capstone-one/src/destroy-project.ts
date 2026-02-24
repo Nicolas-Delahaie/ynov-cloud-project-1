@@ -16,31 +16,9 @@ import {
   APIGatewayClient,
   DeleteRestApiCommand,
 } from '@aws-sdk/client-api-gateway';
-import { existsSync, readFileSync, unlinkSync } from 'fs';
-import path from 'path';
-
-interface DeploymentState {
-  region: string;
-  bucketName: string;
-  tableName: string;
-  apiId: string;
-  apiName: string;
-  stageName: string;
-  createdAt: string;
-}
-
-const stateFilePath = path.resolve(__dirname, '../.deployment-state.json');
-
-function loadState(): DeploymentState {
-  if (!existsSync(stateFilePath)) {
-    throw new Error(
-      `Fichier d'état introuvable: ${stateFilePath}. Lance d'abord le déploiement avec src/deploy-project.ts.`,
-    );
-  }
-
-  const raw = readFileSync(stateFilePath, 'utf-8');
-  return JSON.parse(raw) as DeploymentState;
-}
+import { existsSync, unlinkSync } from 'fs';
+import { loadState, stateFilePath } from './shared/state';
+import { sleep, chunkArray, getAwsErrorName } from './shared/utils';
 
 async function waitForTableDeletion(
   dynamoClient: DynamoDBClient,
@@ -50,26 +28,15 @@ async function waitForTableDeletion(
     try {
       await dynamoClient.send(new DescribeTableCommand({ TableName: tableName }));
       console.log(`⏳ Waiting for table deletion: ${tableName}`);
-      await new Promise((resolve) => {
-        setTimeout(resolve, 1500);
-      });
+      await sleep();
     } catch (error) {
-      const errorName = (error as { name?: string }).name;
-      if (errorName === 'ResourceNotFoundException') {
+      if (getAwsErrorName(error) === 'ResourceNotFoundException') {
         console.log(`✅ Table deleted: ${tableName}`);
         break;
       }
       throw error;
     }
   }
-}
-
-function chunkArray<T>(items: T[], size: number): T[][] {
-  const chunks: T[][] = [];
-  for (let index = 0; index < items.length; index += size) {
-    chunks.push(items.slice(index, index + size));
-  }
-  return chunks;
 }
 
 async function deleteAllDynamoItems(
@@ -130,8 +97,7 @@ async function deleteDynamoTable(
     await dynamoClient.send(new DeleteTableCommand({ TableName: tableName }));
     await waitForTableDeletion(dynamoClient, tableName);
   } catch (error) {
-    const errorName = (error as { name?: string }).name;
-    if (errorName === 'ResourceNotFoundException') {
+    if (getAwsErrorName(error) === 'ResourceNotFoundException') {
       console.log(`ℹ️ Table already deleted: ${tableName}`);
       return;
     }
@@ -178,8 +144,7 @@ async function emptyAndDeleteBucket(
     await s3Client.send(new DeleteBucketCommand({ Bucket: bucketName }));
     console.log(`✅ Deleted bucket: ${bucketName}`);
   } catch (error) {
-    const errorName = (error as { name?: string }).name;
-    if (errorName === 'NoSuchBucket') {
+    if (getAwsErrorName(error) === 'NoSuchBucket') {
       console.log(`ℹ️ Bucket already deleted: ${bucketName}`);
       return;
     }
@@ -192,8 +157,7 @@ async function deleteApiGateway(apiGatewayClient: APIGatewayClient, apiId: strin
     await apiGatewayClient.send(new DeleteRestApiCommand({ restApiId: apiId }));
     console.log(`✅ Deleted API Gateway: ${apiId}`);
   } catch (error) {
-    const errorName = (error as { name?: string }).name;
-    if (errorName === 'NotFoundException') {
+    if (getAwsErrorName(error) === 'NotFoundException') {
       console.log(`ℹ️ API already deleted: ${apiId}`);
       return;
     }

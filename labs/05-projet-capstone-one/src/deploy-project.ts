@@ -5,7 +5,6 @@ import {
   DescribeTableCommand,
   DynamoDBClient,
   PutItemCommand,
-  type AttributeValue,
 } from '@aws-sdk/client-dynamodb';
 import {
   type BucketLocationConstraint,
@@ -25,20 +24,11 @@ import {
   APIGatewayClient,
 } from '@aws-sdk/client-api-gateway';
 import { execSync } from 'child_process';
-import { readFileSync, readdirSync, writeFileSync } from 'fs';
+import { readFileSync, readdirSync } from 'fs';
 import path from 'path';
-
-type ShipItem = Record<string, AttributeValue>;
-
-interface DeploymentState {
-  region: string;
-  bucketName: string;
-  tableName: string;
-  apiId: string;
-  apiName: string;
-  stageName: string;
-  createdAt: string;
-}
+import { stateFilePath, saveState } from './shared/state';
+import { sleep } from './shared/utils';
+import type { ShipItem, DeploymentState } from './shared/types';
 
 const region = process.env['AWS_REGION'] ?? process.env['AWS_DEFAULT_REGION'] ?? 'eu-west-1';
 const stageName = 'dev';
@@ -46,7 +36,6 @@ const suffix = Date.now().toString();
 const bucketName = `ships-capstone-${suffix}`;
 const tableName = `ships-capstone-table-${suffix}`;
 const apiName = `ships-capstone-api-${suffix}`;
-const stateFilePath = path.resolve(__dirname, '../.deployment-state.json');
 const shipsDataPath = path.resolve(__dirname, '../data/ships.json');
 const assetsDirPath = path.resolve(__dirname, '../assets');
 
@@ -141,7 +130,7 @@ async function createBucketAndUploadAssets(ships: ShipItem[]): Promise<void> {
     .filter((value): value is string => Boolean(value));
 
   if (targetKeys.length > assetFiles.length) {
-    throw new Error('Le dossier assets ne contient pas assez d’images pour les clés S3 définies.');
+    throw new Error(`Le dossier assets ne contient pas assez d'images pour les clés S3 définies.`);
   }
 
   for (let index = 0; index < targetKeys.length; index += 1) {
@@ -170,9 +159,7 @@ async function createBucketAndUploadAssets(ships: ShipItem[]): Promise<void> {
 async function waitForTableActive(targetTableName: string): Promise<void> {
   let tableStatus: string | undefined;
   do {
-    await new Promise((resolve) => {
-      setTimeout(resolve, 1500);
-    });
+    await sleep();
 
     const describeResponse = await dynamoClient.send(
       new DescribeTableCommand({ TableName: targetTableName }),
@@ -554,10 +541,6 @@ async function createApiGateway(
   );
 
   return { apiId };
-}
-
-function saveState(state: DeploymentState): void {
-  writeFileSync(stateFilePath, `${JSON.stringify(state, null, 2)}\n`, 'utf-8');
 }
 
 async function deploy(): Promise<void> {
