@@ -1,0 +1,219 @@
+<mxfile host="65bd71144e">
+    <diagram name="Catalog-Snap Architecture" id="catalog-snap-arch">
+        <mxGraphModel dx="626" dy="475" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="title" value="&lt;b&gt;Catalog-Snap — Architecture&lt;/b&gt;&lt;br&gt;Région : eu-west-3 (Paris) | 2 AZ" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontSize=16;" parent="1" vertex="1">
+                    <mxGeometry x="400" y="20" width="500" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="users" value="&lt;b&gt;Utilisateurs&lt;/b&gt;" style="shape=actor;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="620" y="80" width="60" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="cf_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;arcSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="530" y="170" width="240" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="cf" value="&lt;b&gt;CloudFront (CDN)&lt;/b&gt;&lt;br&gt;Cache images &amp; statique&lt;br&gt;1 To transfer/mois" style="text;html=1;align=center;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="540" y="175" width="220" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=2;strokeColor=#333333;" parent="1" source="users" target="cf_box" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e1_label" value="HTTPS" style="edgeLabel;html=1;align=center;verticalAlign=middle;fontSize=10;fontColor=#666666;" parent="e1" vertex="1" connectable="0">
+                    <mxGeometry x="-0.2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="s3_box" value="&lt;b&gt;Amazon S3&lt;/b&gt;&lt;br&gt;&lt;i&gt;Service Régional&lt;/i&gt;&lt;br&gt;2 To" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;arcSize=10;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="10" y="420" width="100" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="igw" value="&lt;b&gt;IGW&lt;/b&gt;" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.internet_gateway;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=10;labelPosition=right;verticalLabelPosition=middle;align=left;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="595" y="258" width="30" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="vpc" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#999999;strokeWidth=2;dashed=1;arcSize=5;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="280" width="1100" height="520" as="geometry"/>
+                </mxCell>
+                <mxCell id="vpc_label" value="&lt;b&gt;VPC&lt;/b&gt; — 2 Availability Zones" style="text;html=1;align=left;verticalAlign=top;fontSize=13;fontColor=#666666;" parent="1" vertex="1">
+                    <mxGeometry x="110" y="285" width="250" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="az_a" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6f2ff;strokeColor=#6c8ebf;strokeWidth=1;dashed=1;" parent="1" vertex="1">
+                    <mxGeometry x="130" y="320" width="500" height="460" as="geometry"/>
+                </mxCell>
+                <mxCell id="az_a_label" value="&lt;b&gt;AZ-A&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=top;fontSize=12;fontColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="140" y="325" width="80" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="pub_a" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="150" y="355" width="220" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="pub_a_label" value="&lt;b&gt;Subnet Public A&lt;/b&gt;" style="text;html=1;align=left;fontSize=10;fontColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="155" y="358" width="130" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="nat_a" value="&lt;b&gt;NAT GW&lt;/b&gt;" style="shape=trapezoid;perimeter=trapezoidPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="175" y="385" width="130" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="priv_a" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="150" y="490" width="460" height="270" as="geometry"/>
+                </mxCell>
+                <mxCell id="priv_a_label" value="&lt;b&gt;Subnet Privé A&lt;/b&gt;" style="text;html=1;align=left;fontSize=10;fontColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="155" y="493" width="130" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="ecs_a" value="&lt;b&gt;ECS Fargate&lt;/b&gt;&lt;br&gt;Task 1 (0.5 vCPU / 1 Go)&lt;br&gt;Task 2 (auto-scale)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="170" y="530" width="180" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="rds_a" value="&lt;b&gt;RDS MySQL&lt;/b&gt;&lt;br&gt;Primary (db.t3.medium)&lt;br&gt;100 Go gp3" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="190" y="640" width="160" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="ec2_batch" value="&lt;b&gt;EC2 Batch&lt;/b&gt;&lt;br&gt;3× t3.large&lt;br&gt;4 jours/mois" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="420" y="530" width="150" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="az_b" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6f2ff;strokeColor=#6c8ebf;strokeWidth=1;dashed=1;" parent="1" vertex="1">
+                    <mxGeometry x="670" y="320" width="500" height="460" as="geometry"/>
+                </mxCell>
+                <mxCell id="az_b_label" value="&lt;b&gt;AZ-B&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=top;fontSize=12;fontColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="680" y="325" width="80" height="25" as="geometry"/>
+                </mxCell>
+                <mxCell id="pub_b" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="900" y="355" width="220" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="pub_b_label" value="&lt;b&gt;Subnet Public B&lt;/b&gt;" style="text;html=1;align=left;fontSize=10;fontColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="905" y="358" width="130" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="nat_b" value="&lt;b&gt;NAT GW&lt;/b&gt;" style="shape=trapezoid;perimeter=trapezoidPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="935" y="385" width="130" height="65" as="geometry"/>
+                </mxCell>
+                <mxCell id="priv_b" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="690" y="490" width="460" height="270" as="geometry"/>
+                </mxCell>
+                <mxCell id="priv_b_label" value="&lt;b&gt;Subnet Privé B&lt;/b&gt;" style="text;html=1;align=left;fontSize=10;fontColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="695" y="493" width="130" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="ecs_b" value="&lt;b&gt;ECS Fargate&lt;/b&gt;&lt;br&gt;Task 3 (0.5 vCPU / 1 Go)&lt;br&gt;Task 4 (auto-scale)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="930" y="530" width="180" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="rds_b" value="&lt;b&gt;RDS MySQL&lt;/b&gt;&lt;br&gt;Standby (Multi-AZ)&lt;br&gt;Réplique synchrone" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=10;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;strokeWidth=1;dashed=1;" parent="1" vertex="1">
+                    <mxGeometry x="930" y="640" width="160" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=2;strokeColor=#333333;" parent="1" source="cf_box" target="igw" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_igw_alb" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=2;strokeColor=#82b366;" parent="1" source="igw" target="alb_box" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_igw_alb_label" value="trafic entrant" style="edgeLabel;html=1;align=center;verticalAlign=middle;fontSize=9;fontColor=#82b366;" parent="e_igw_alb" connectable="0" vertex="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=2;strokeColor=#9673a6;" parent="1" source="alb_box" target="ecs_a" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=2;strokeColor=#9673a6;" parent="1" source="alb_box" target="ecs_b" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=1;strokeColor=#b85450;dashed=1;" parent="1" source="ecs_a" target="rds_a" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e5b" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=1;strokeColor=#b85450;dashed=1;" parent="1" source="ecs_b" target="rds_a" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=1;strokeColor=#b85450;dashed=1;" parent="1" source="rds_a" target="rds_b" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e6_label" value="Réplication&lt;br&gt;synchrone" style="edgeLabel;html=1;align=center;verticalAlign=middle;fontSize=9;fontColor=#b85450;" parent="e6" connectable="0" vertex="1">
+                    <mxGeometry x="-0.1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e_nat_a" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=1;strokeColor=#d6b656;dashed=1;" parent="1" source="ecs_a" target="nat_a" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_nat_b" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=1;strokeColor=#d6b656;dashed=1;" parent="1" source="ecs_b" target="nat_b" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_nat_a_igw" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=1;strokeColor=#d6b656;dashed=1;" parent="1" source="nat_a" target="igw" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_nat_b_igw" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=1;strokeColor=#d6b656;dashed=1;" parent="1" source="nat_b" target="igw" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_s3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=2;strokeColor=#82b366;" parent="1" source="ecs_a" target="s3_box" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_s3_label" value="images" style="edgeLabel;html=1;align=center;verticalAlign=middle;fontSize=9;fontColor=#82b366;" parent="e_s3" connectable="0" vertex="1">
+                    <mxGeometry x="-0.2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e_s3b" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=2;strokeColor=#82b366;" parent="1" source="ecs_b" target="s3_box" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_s3b_label" value="images" style="edgeLabel;html=1;align=center;verticalAlign=middle;fontSize=9;fontColor=#82b366;" parent="e_s3b" connectable="0" vertex="1">
+                    <mxGeometry x="-0.2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e_cf_s3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=2;strokeColor=#d6b656;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="cf_box" target="s3_box" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="500" y="205"/>
+                            <mxPoint x="60" y="205"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e_cf_s3_label" value="origin&lt;br&gt;(cache miss)" style="edgeLabel;html=1;align=center;verticalAlign=middle;fontSize=9;fontColor=#d6b656;" parent="e_cf_s3" connectable="0" vertex="1">
+                    <mxGeometry x="-0.3" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="cw" value="&lt;b&gt;CloudWatch&lt;/b&gt;&lt;br&gt;Métriques &amp; Alarmes&lt;br&gt;→ Auto Scaling" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" parent="1" vertex="1">
+                    <mxGeometry x="1240" y="170" width="160" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cw" style="edgeStyle=orthogonalEdgeStyle;rounded=1;strokeWidth=1;strokeColor=#d6b656;dashed=1;" parent="1" source="cw" target="ecs_b" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_cw_label" value="scale&lt;br&gt;in/out" style="edgeLabel;html=1;align=center;verticalAlign=middle;fontSize=9;fontColor=#d6b656;" parent="e_cw" connectable="0" vertex="1">
+                    <mxGeometry x="-0.3" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="cost_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;arcSize=5;strokeWidth=2;" parent="1" vertex="1">
+                    <mxGeometry x="1240" y="320" width="310" height="460" as="geometry"/>
+                </mxCell>
+                <mxCell id="cost_title" value="&lt;b&gt;💰 Estimation Mensuelle&lt;/b&gt;" style="text;html=1;align=center;fontSize=14;fontColor=#d79b00;" parent="1" vertex="1">
+                    <mxGeometry x="1260" y="330" width="270" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="cost_fixed_title" value="&lt;b&gt;— Coûts Fixes —&lt;/b&gt;" style="text;html=1;align=center;fontSize=11;fontColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="1260" y="365" width="270" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="cost_fixed" value="NAT Gateway ×2&lt;br&gt;NAT Data (500 Go)&lt;br&gt;ALB&lt;br&gt;RDS Multi-AZ" style="text;html=1;align=left;fontSize=11;fontFamily=Courier New;fontColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="1270" y="390" width="260" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="cost_var_title" value="&lt;b&gt;— Coûts Variables —&lt;/b&gt;" style="text;html=1;align=center;fontSize=11;fontColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="1260" y="480" width="270" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="cost_var" value="ECS Fargate&lt;br&gt;S3 (2 To + requêtes)&lt;br&gt;CloudFront (1 To)&lt;br&gt;EC2 Batch" style="text;html=1;align=left;fontSize=11;fontFamily=Courier New;fontColor=#333333;" parent="1" vertex="1">
+                    <mxGeometry x="1270" y="505" width="260" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="cost_total_line" value="" style="line;strokeWidth=2;strokeColor=#d79b00;" parent="1" vertex="1">
+                    <mxGeometry x="1270" y="595" width="250" height="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="cost_total" value="&lt;b&gt;TOTAL MENSUEL&lt;/b&gt;" style="text;html=1;align=center;fontSize=14;fontColor=#d79b00;" parent="1" vertex="1">
+                    <mxGeometry x="1260" y="610" width="270" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="cost_optim_title" value="&lt;b&gt;— Optimisations —&lt;/b&gt;" style="text;html=1;align=center;fontSize=11;fontColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="1260" y="650" width="270" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="cost_optim" value="• VPC Endpoints S3 → -NAT&lt;br&gt;• Reserved RDS → -50%&lt;br&gt;• Spot EC2 batch → -70%&lt;br&gt;• 1 NAT GW (dev)" style="text;html=1;align=left;fontSize=10;fontColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="1270" y="675" width="260" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="legend_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="840" width="350" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="legend" value="&lt;b&gt;Légende&lt;/b&gt;&lt;br&gt;🟢 Réseau/Stockage | 🟣 Compute (ECS) | 🔴 Base de données (RDS)&lt;br&gt;🟡 Gestion/CDN (CloudFront, NAT, CloudWatch)&lt;br&gt;— Trait plein = flux principal | - - Trait pointillé = flux secondaire" style="text;html=1;align=left;fontSize=10;fontColor=#666666;" parent="1" vertex="1">
+                    <mxGeometry x="50" y="845" width="330" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="alb_box" value="&lt;b&gt;Application Load Balancer&lt;/b&gt;&lt;br&gt;Layer 7 | 2 AZ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;arcSize=10;fontSize=11;" parent="1" vertex="1">
+                    <mxGeometry x="420" y="360" width="420" height="50" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

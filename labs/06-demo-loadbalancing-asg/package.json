@@ -22,9 +22,9 @@
   "author": "AWS Labs",
   "license": "MIT",
   "dependencies": {
-    "@aws-sdk/client-auto-scaling": "^3.965.0",
-    "@aws-sdk/client-cloudwatch": "^3.965.0",
-    "@aws-sdk/client-ec2": "^3.965.0",
-    "@aws-sdk/client-ssm": "^3.965.0"
+    "@aws-sdk/client-auto-scaling": "^3.998.0",
+    "@aws-sdk/client-cloudwatch": "^3.998.0",
+    "@aws-sdk/client-ec2": "^3.998.0",
+    "@aws-sdk/client-ssm": "^3.998.0"
   }
 }
